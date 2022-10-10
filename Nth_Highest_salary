@@ -1,0 +1,31 @@
+# Using subquery 
+
+
+select  max(an.salary) AS SecondHighestSalary from
+
+(select salary,
+ dense_rank() OVER(
+    
+    ORDER BY salary DESC
+) AS dense From Employee) AS an
+
+ where an.dense =2
+ 
+ 
+ 
+ 
+ # using CTE 
+ 
+ /* Write your T-SQL query statement below */
+
+with CTE AS (
+SELECT salary,
+DENSE_RANK() OVER(
+
+    ORDER BY salary DESC
+)AS  rank from Employee
+)
+
+select   Max(salary) AS SecondHighestSalary
+
+From CTE where CTE.rank =2
